@@ -18,12 +18,43 @@ const playRound = (compSelect, playerSelect) => {
     let comp = compSelect;
     let player = playerFormat(playerSelect);
 
-    if (comp == "Rock") {
-        player == "Scissor" ? loseMessage(comp, player) : (player == "Rock" ? tieMessage() : winMessage(comp, player));
-    } else if (comp == "Scissor") {
-        player == "Paper" ? loseMessage(comp, player) : (player == "Scissor" ? tieMessage() : winMessage(comp, player));
-    } else {
-        player == "Rock" ? loseMessage(comp, player) : (player == "Paper" ? tieMessage() : winMessage(comp, player));
+    switch (comp) {
+        case "Rock":
+            switch (player) {
+                case "Rock":
+                    return 0;
+                case "Scissor":
+                    return -1;
+                case "Paper":
+                    return 1;
+                default:
+                    console.error("Wrong input by User");
+            }
+            break;
+        case "Scissor":
+            switch (player) {
+                case "Rock":
+                    return 1;
+                case "Scissor":
+                    return 0;
+                case "Paper":
+                    return -1;
+                default:
+                    console.error("Wrong input by User");
+            }
+            break;
+        case "Paper":
+            switch (player) {
+                case "Rock":
+                    return -1;
+                case "Scissor":
+                    return 1;
+                case "Paper":
+                    return 0;
+                default:
+                    console.error("Wrong input by User");
+            }
+            break;
     }
 }
 
@@ -34,17 +65,20 @@ const playerFormat = (playerSelect) => {
     return arr.join('');
 }
 
-// Sends out a message to let player know he has lost.
-const loseMessage = (comp, player) => {
-    console.log("You Lose! " + comp + " beats " + player);
-}
+const game = () => {
+    let score = 0;
+    for (let i = 0; i < 5; i++) {
+        let result = playRound(computerSelection(), prompt("Enter Rock, Paper, or Scissor."));
+        if (result == 0) {
+            console.log("You have tied!");
+        } else if (result == 1) {
+            console.log("You have won!");
+        } else {
+            console.log("You have lost!");
+        }
 
-// Sends out a message to let player know he has won.
-const winMessage = (comp, player) => {
-    console.log("You Win! " + player + " beats " + comp);
-}
+        score += result;
+    }
 
-// Sends out a message to let player know he has tied.
-const tieMessage = () => {
-    console.log("You tied!");
+    console.log("You have a score of " + score);
 }
