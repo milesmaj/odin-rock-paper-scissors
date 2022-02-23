@@ -77,25 +77,35 @@ const updateScore = (score) => {
     }
 }
 
+// Check if player has won.
+const checkWin = () => {
+    let compScore = document.getElementById("compScore");
+    let playerScore = document.getElementById("playerScore");
+
+    if (parseInt(compScore.innerHTML) == 5) {
+        alert("You lost!");
+        reset();
+    } else if (parseInt(playerScore.innerText) == 5) {
+        alert("You win!");
+        reset();
+    }
+}
+
+// Reset the game
+const reset = () => {
+    document.getElementById("compScore").innerHTML = 0;
+    document.getElementById("playerScore").innerHTML = 0;
+}
+
 // Btn function for playing game.
 const gameBtn = (playerSelect) => {
     updateScore(playRound(computerSelection(), playerSelect));
+    checkWin();
 }
 
-// const game = () => {
-//     let score = 0;
-//     for (let i = 0; i < 5; i++) {
-//         let result = playRound(computerSelection(), prompt("Enter Rock, Paper, or Scissor."));
-//         if (result == 0) {
-//             console.log("You have tied!");
-//         } else if (result == 1) {
-//             console.log("You have won!");
-//         } else {
-//             console.log("You have lost!");
-//         }
-
-//         score += result;
-//     }
-
-//     console.log("You have a score of " + score);
-// }
+window.onload = () => {
+    let buttonRow = document.getElementsByClassName("select-answer")[0];
+    buttonRow.children[0].addEventListener('click', () => gameBtn('Rock'));
+    buttonRow.children[1].addEventListener('click', () => gameBtn('Paper'));
+    buttonRow.children[2].addEventListener('click', () => gameBtn('Scissor'));
+}
