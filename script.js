@@ -65,20 +65,37 @@ const playerFormat = (playerSelect) => {
     return arr.join('');
 }
 
-const game = () => {
-    let score = 0;
-    for (let i = 0; i < 5; i++) {
-        let result = playRound(computerSelection(), prompt("Enter Rock, Paper, or Scissor."));
-        if (result == 0) {
-            console.log("You have tied!");
-        } else if (result == 1) {
-            console.log("You have won!");
-        } else {
-            console.log("You have lost!");
-        }
+// Updates DOM to reflect current score.
+const updateScore = (score) => {
+    let compScore = document.getElementById("compScore");
+    let playerScore = document.getElementById("playerScore");
 
-        score += result;
+    if (score == 1) {
+        playerScore.innerText = parseInt(playerScore.innerText) + 1;
+    } else if (score == -1) {
+        compScore.innerText = parseInt(compScore.innerText) + 1;
     }
-
-    console.log("You have a score of " + score);
 }
+
+// Btn function for playing game.
+const gameBtn = (playerSelect) => {
+    updateScore(playRound(computerSelection(), playerSelect));
+}
+
+// const game = () => {
+//     let score = 0;
+//     for (let i = 0; i < 5; i++) {
+//         let result = playRound(computerSelection(), prompt("Enter Rock, Paper, or Scissor."));
+//         if (result == 0) {
+//             console.log("You have tied!");
+//         } else if (result == 1) {
+//             console.log("You have won!");
+//         } else {
+//             console.log("You have lost!");
+//         }
+
+//         score += result;
+//     }
+
+//     console.log("You have a score of " + score);
+// }
